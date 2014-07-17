@@ -1,20 +1,25 @@
 <?php require_once('connections/phpimage.php');
-		 error_reporting(0);
+		error_reporting(0);
 		 mysqli_select_db($db,$dbname);
-		 $id = $_GET['cid'];
-		 if($id == 0){
-		 	$qur = "SELECT * FROM image";
-		 }else{
-		 	$qur = "SELECT * FROM image WHERE cid = '$id'";
-		 }
+		 $qur = "SELECT * FROM cat";
 		 $res = mysqli_query($db, $qur);
+?>
+
+<?php require_once('connections/phpimage.php');
+	error_reporting(0);
+	if($_POST['submit']){
+		mysqli_select_db($db,$dbname);
+		$cat = $_POST['cat'];
+		$quer = "INSERT INTO `cat`(`id`, `name`) VALUES ('','$cat')";
+		$result = mysqli_query($db, $quer);
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>All Images</title>
+<title>Categories</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 	
@@ -28,7 +33,6 @@
             	<p align="right"><a href="logreg.php">Log in/Register</a></p>
             <?php } ?>
         </div>
-        
     	<div id="header">
         	<a href="index.php">
                 <div class="button">
@@ -51,9 +55,11 @@
         </div>
         
         <div id="main">	
-		<?php while($row = mysqli_fetch_array($res)){ ?>
-			<div class="picture"><a href="<?php echo $row['path']?>" target="_blank"><img src="<?php echo $row['path']?>" /></a></div>
-		<?php } ?>
+			<div id="logreg">
+            	<p><strong><h3>Are you sure you want to log out?</h3></strong></p><br />
+                <a href="index.php" onclick="<?php session_start(); $_SESSION['loggedIn'] = "false";?>">YES</a>
+                <a href="index.php">NO</a>
+            </div>
         </div>
     </div>
 </body>

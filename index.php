@@ -1,7 +1,9 @@
 <?php require_once('connections/phpimage.php');
+		error_reporting(0);
 		 mysqli_select_db($db,$dbname);
 		 $qur = "SELECT * FROM cat";
 		 $res = mysqli_query($db, $qur);
+		 $usr = $_GET[usr];
 ?>
 
 <?php require_once('connections/phpimage.php');
@@ -18,14 +20,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Index</title>
+<title>Categories</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 	
 <body>
 	<div id="wrapper">
     	<div id="reg">
-        	<p align="right"><a href="login.php">Login/Register</a></p>
+			<?php session_start();
+				if ($_SESSION['loggedIn'] == "true") { ?>
+					 <p align="right"><a href="logout.php">Log Out</a></p>
+			<?php } else{?>
+            	<p align="right"><a href="logreg.php">Log in/Register</a></p>
+            <?php } ?>
         </div>
     	<div id="header">
         	<a href="index.php">
@@ -61,5 +68,9 @@
            </p>
         </div>
     </div>
+    <?php
+	if($usr == 1){
+		echo "<script type='text/javascript'>alert('Loging in successful');</script>";
+	} ?>
 </body>
 </html>
