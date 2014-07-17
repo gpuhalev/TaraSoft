@@ -20,6 +20,10 @@
 	
 <body>
 	<div id="wrapper">
+    	<div id="reg">
+        	<p align="right"><a href="login.php">Login/Register</a></p>
+        </div>
+        
     	<div id="header">
         	<a href="index.php">
                 <div class="button">
